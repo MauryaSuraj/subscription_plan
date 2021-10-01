@@ -31,12 +31,8 @@ $string["price"] = "Price";
 $string["discount"] = "Discounts";
 $string["course"] = "Course(s)";
 $string["description"] = "Discriptions";
-$string["payment"] = "Subscriptions Plan";
+$string['payment'] = "Subscriptions Plan";
 
 $string['edit'] = 'Edit';
 $string['delete'] = 'Delete';
-
-
-
-
-
+$string['plan'] = 'Plan';

@@ -9,7 +9,7 @@ class local_plan_form extends moodleform {
         global $CFG, $DB, $COURSE, $OUTPUT, $USER;
 
         $mform = $this->_form;
-        $id = $this->_customdata['id'];
+        $id = isset($this->_customdata['id']) ? $this->_customdata['id'] : null;
        
         $mform->addElement('html', '<div class="custom-apply-form p-25 mt-20">');
         $mform->addElement('html', '<div class="overlay-bg-internpost"></div>');
@@ -35,12 +35,14 @@ class local_plan_form extends moodleform {
         
         $mform->addElement('text', 'priceperhours', get_string('priceperhours', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('priceperhours', 'required', 'required', null, 'client');
+        $mform->setType('priceperhours', PARAM_RAW);
         
 //        $mform->addElement('text', 'price', get_string('price', 'local_subscription_plan'), ['size' => '100']);
 //        $mform->addRule('price', 'required', 'required', null, 'client');
         
         $mform->addElement('text', 'discount', get_string('discount', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('discount', 'required', 'required', null, 'client');
+        $mform->setType('discount', PARAM_RAW);
         
         $sql = 'SELECT * from {course} where id <> 1 and visible = 1';
         $courses = $DB->get_records_sql($sql);

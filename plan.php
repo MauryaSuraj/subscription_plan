@@ -15,10 +15,10 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('admin');
 $PAGE->set_url('/local/subscription_plan/plan.php', ['id' => $id]);
 
-$addnewpromo = get_string('payment', 'subscription_plan');
+$addnewpromo = get_string('payment', 'local_subscription_plan');
 //$navlist = get_string('product_list', 'local_paytm');
 //$navlisturl = new moodle_url('/local/subscription/product_list.php');
-$nav = get_string('plan', 'subscription_plan');
+$nav = get_string('plan', 'local_subscription_plan');
 $nameErr = '';
 
 //$PAGE->navbar->add($navlist, $navlisturl);
