@@ -7,7 +7,11 @@ namespace local_subscription_plan\util;
 
 defined('MOODLE_INTERNAL') || die();
 
-class SusbcriptionsPlans
+use html_writer;
+use stdClass;
+use html_table;
+
+class SusbcriptionsPlans extends SubsHelper
 {
 	
 	private $db;
@@ -26,7 +30,7 @@ class SusbcriptionsPlans
 			return 0;
 		}
 
-		$dataObject              = new \stdClass;
+		$dataObject              = new stdClass;
 		$dataObject->plan_name   = $name;
 		$dataObject->created_by	 = $this->user->id;
 		$dataObject->createdtime = time();	
@@ -34,13 +38,50 @@ class SusbcriptionsPlans
 		return $this->db->insert_record($this->table_sp_name, $dataObject);
 	}
 
-	public function get_subscription_plan_name(){
-		return "HELLO";
+	private function get_subscription_plan_names(){
+		if ($this->db->record_exists($this->table_sp_name, array())) {
+			return $this->db->get_records($this->table_sp_name);
+		}
+		return false;
+	}
+
+	public function get_single_subscription_plan_name($id = null){
+		if (is_null($id)) {
+			return false;
+		}
+
+		if ($this->db->record_exists($this->table_sp_name, array('id' => $id ))) {
+			return $this->db->get_record($this->table_sp_name, array('id' => $id ));
+		}
+		return false;
 	}
 
 	public function update_subscription_plan_name(){
 
 	}
-	
+
+	public function plan_name_table_data($datas = array()){
+
+		$datas = $this->get_subscription_plan_names();
+
+		$table = new html_table(array('class' => 'table-responsive' ));
+		
+		$table->head = [
+			get_string('plan_name', 'local_subscription_plan'), 
+			get_string('created_at', 'local_subscription_plan'),
+			get_string('manage_setting', 'local_subscription_plan')
+		];
+		    
+	    foreach ($datas as $key => $value) {
+
+	    	$v 				= new stdClass;
+	    	$v->name 		= $value->plan_name;
+	    	$v->createdate  = parent::get_date($value->createdtime);
+	    	$v->manageurl 	= parent::manage_url($value->id);  
+	    	$table->data[] 	=  (array)$v;
+	    }
+
+		return html_writer::table($table);
+	}
 
 }

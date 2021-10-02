@@ -12,9 +12,6 @@ $id = optional_param('id', null, PARAM_INT);
 
 require_login();
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 $context = context_system::instance();
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('admin');
@@ -31,65 +28,28 @@ $subscription_plan      = new SusbcriptionsPlans;
 
 if ($subscription_plan_form->is_cancelled()) {
 
+    $manageurl = new moodle_url('/local/subscription_plan/plan.php');
+    redirect($manageurl);
+
 } else if ($fromspf = $subscription_plan_form->get_data()) {
     
     if (isset($fromspf->plan_name)) {
         if ($subscription_plan->add_subscription_plan_name($fromspf->plan_name)) {
-            \core\flash::success(get_string('plan_name_added', 'local_subscription_plan'));
+            $manageurl = new moodle_url('/local/subscription_plan/plan.php');
+           redirect($manageurl, get_string('plan_name_added', 'local_subscription_plan') , 0, \core\output\notification::NOTIFY_SUCCESS);
         }
     }    
     
-} else {
-  
+} else {  
+
+   if (isset($_GET['id']) && $_GET['id'] != "") {
+        $formdata = $subscription_plan->get_single_subscription_plan_name($_GET['id']);
+        $subscription_plan_form->set_data($formdata);  
+    } 
+    
   $subscription_plan_form->display();
 }
 
-// print_r($subscription_plan->get_subscription_plan_name());
-
-if (!empty($data)) {
-
-    $setdata = new stdClass();
-    $setdata->id = $data->id;
-    $mform->set_data($setdata);
-}
-
-// if ($mform->is_cancelled()) {
-
-//     redirect(new moodle_url('/local/subscription_plan/plan.php'));
-
-// } else if ($data = $mform->get_data(false)) {
-   
-//     $formdata = new stdClass();
-
-//     $formdata->plantype = $data->plantype;
-//     $formdata->grade = $data->grade;
-//     $formdata->studentlevel = $data->studentlevel;
-//     $formdata->noofsubuject = $data->noofsubuject;
-//     $formdata->priceperhours = $data->priceperhours;
-//     $formdata->discount = $data->discount;
-//     $formdata->totalprice = $data->price * $data->priceperhours;
-//     $formdata->subjectid = $data->course;
-//     $formdata->descriptions = $data->description['text'];
-//     $formdata->cretedby = $USER->id;
-//     $formdata->createdtime = time();
-    
-//     if (!empty($data->id)) {
-//         $sub_data = $DB->get_records('subscriptions_plan', array('id' => $data->id));
-//     }
-//     if (count($sub_data) > 0) {
-        
-//         $formdata->createdby = $USER->id;
-//         $formdata->createddate = time();
-//         $formdata->modifieddate = time();
-
-//         $DB->update_record('subscriptions_plan', $formdata);
-
-//     } else {
-//         $DB->insert_record('subscriptions_plan', $formdata);
-//     }
-
-// } else {
-//     // $mform->display();
-// }
+echo $subscription_plan->plan_name_table_data();
 
 echo $OUTPUT->footer();
