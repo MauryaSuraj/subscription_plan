@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/subscription_plan/db" VERSION="20180625" COMMENT="XMLDB file for Moodle local/subscription_plan"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+
+    <TABLE NAME="subscriptions_plan_name" COMMENT="Holds information about subscription plan names">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="plan_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Plan name " />
+        <FIELD NAME="created_by" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Plan created by" />
+        <FIELD NAME="createdtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="subscriptions_plan" COMMENT="Holds all known information about subscription plans">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="plan_type" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="student_level" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Level of student" />
+        <FIELD NAME="no_of_subject" TYPE="int" LENGTH="10" DEFAULT="0" NOTNULL="true" SEQUENCE="false" COMMENT="No of courses in this plan" />
+        <FIELD NAME="class_hours" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="price per hour" />
+        <FIELD NAME="discount" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"  />
+        <FIELD NAME="total_price" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Net Price of plan" />
+        <FIELD NAME="course_id" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Course ids here" />
+        <FIELD NAME="descriptions" TYPE="text" NOTNULL="false"  SEQUENCE="false" COMMENT="Details of plan" />
+        <FIELD NAME="cretedby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Plan created by" />
+        <FIELD NAME="createdtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid_aff_for" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="cretedby_subs_for" TYPE="foreign" FIELDS="cretedby" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_id_aff" UNIQUE="false" FIELDS="course_id"/>
+        <INDEX NAME="user_id_aff" UNIQUE="false" FIELDS="cretedby"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="subscriptions_plan_checkout" COMMENT="Holds all known information about subscription Checkout form details">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="plan_type" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="student_level" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="no_of_subuject" TYPE="int" LENGTH="10" DEFAULT="0" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="price_per_hours" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="discount" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="total_price" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" />
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" />
+        <FIELD NAME="descriptions" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" />
+        <FIELD NAME="cretedby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" />
+        <FIELD NAME="createdtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid_aff_for" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="cretedby_subs_for" TYPE="foreign" FIELDS="cretedby" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_id_aff" UNIQUE="false" FIELDS="course_id"/>
+        <INDEX NAME="user_id_aff" UNIQUE="false" FIELDS="cretedby"/>
+      </INDEXES>
+    </TABLE>
+
+
+  </TABLES>
+</XMLDB>

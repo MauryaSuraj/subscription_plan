@@ -36,3 +36,11 @@ $string['payment'] = "Subscriptions Plan";
 $string['edit'] = 'Edit';
 $string['delete'] = 'Delete';
 $string['plan'] = 'Plan';
+
+
+$string['plan_name'] = 'Plan name';
+$string['plan_name_field'] = 'Plan name';
+$string['plan_name_help'] = 'Please Enter plan name, Which will be heading of Subscription Plans';
+$string['plan_name_validate'] = 'Plan name is required';
+$string['add_plan_name'] = 'Add new Plan name';
+$string['plan_name_added'] = 'Plan name added';
