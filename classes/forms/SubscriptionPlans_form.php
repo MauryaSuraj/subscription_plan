@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Form To add all files 
+ * */
+
 require_once("$CFG->libdir/formslib.php");
 
-class local_plan_form extends moodleform {
+use local_subscription_plan\util\SusbcriptionsPlans;
+
+class SubscriptionPlans_form extends moodleform {
 
     public function definition() {
 
@@ -11,25 +17,43 @@ class local_plan_form extends moodleform {
         $mform = $this->_form;
         $id = isset($this->_customdata['id']) ? $this->_customdata['id'] : null;
        
+        $sb = new SusbcriptionsPlans;
+        $paln_names = $sb->subscription_plan_names_select_list();
+
         $mform->addElement('html', '<div class="custom-apply-form p-25 mt-20">');
-        $mform->addElement('html', '<div class="overlay-bg-internpost"></div>');
-       //id	plantype	grade			priceperhours	discount	totalprice	subjectid
-        $studentlevel = ['beginners' => 'Beginners', 'intermediate' => 'Intermediate', 'advance' => 'Advance','exclusive'=>'Exclusive'];
-        //$paymenttype = ['single' => 'Singlecourse', 'combocourse' => 'Combo course'];
+        $mform->addElement('html', '<div class="overlay-bg-internpost"> </div>');
+    
+
+        $select = $mform->addElement('select', 'plan_name', 
+                                    get_string('plan_name', 'local_subscription_plan'), 
+                                    $paln_names);
+        $select->setSelected(1);
+
+        $studentlevel = [
+            'beginners'     => get_string('beginners', 'local_subscription_plan'), 
+            'intermediate'  => get_string('intermediate', 'local_subscription_plan'), 
+            'advance'       => get_string('advance', 'local_subscription_plan'),
+            'exclusive'     => get_string('exclusive', 'local_subscription_plan')
+        ];
+
         $select = $mform->addElement('select', 'studentlevel', get_string('studentlevel', 'local_subscription_plan'), $studentlevel);
         $select->setSelected(1);
         
-         $grade = ['elementory' => 'Elementory', 'upper' => 'Middle/High Students'];
-        //$paymenttype = ['single' => 'Singlecourse', 'combocourse' => 'Combo course'];
-        $select = $mform->addElement('select', 'grade', get_string('grade', 'local_subscription_plan'), $grade);
-        $select->setSelected(1);
+        $grade = [
+            'elementory'    => get_string('elementory', 'local_subscription_plan'), 
+            'upper'         => get_string('upper', 'local_subscription_plan')
+        ];
         
+        $plantype = [
+            'single'        => get_string('single', 'local_subscription_plan'), 
+            'combocourse'   => get_string('combocourse', 'local_subscription_plan')
+        ];
         
-        $plantype = ['single' => 'Single course', 'combocourse' => 'Combo course'];
         $select = $mform->addElement('select', 'plantype', get_string('plantype', 'local_subscription_plan'), $plantype);
         $select->setSelected(1);
         
-        $noofsubuject = ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'];
+        $noofsubuject = [ '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5' ];
+        
         $select = $mform->addElement('select', 'noofsubuject', get_string('noofsubuject', 'local_subscription_plan'), $noofsubuject);
         $select->setSelected(1);
         
@@ -37,41 +61,47 @@ class local_plan_form extends moodleform {
         $mform->addRule('priceperhours', 'required', 'required', null, 'client');
         $mform->setType('priceperhours', PARAM_RAW);
         
-//        $mform->addElement('text', 'price', get_string('price', 'local_subscription_plan'), ['size' => '100']);
-//        $mform->addRule('price', 'required', 'required', null, 'client');
         
         $mform->addElement('text', 'discount', get_string('discount', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('discount', 'required', 'required', null, 'client');
-        $mform->setType('discount', PARAM_RAW);
+        $mform->setType('discount', PARAM_INT);
+
+        $mform->addElement('text', 'noofclasses', get_string('noofclasses', 'local_subscription_plan'), ['size' => '100']);
+        $mform->addRule('noofclasses', 'required', 'required', null, 'client');
+        $mform->setType('noofclasses', PARAM_INT);
+
+        $mform->addElement('text', 'actural_price', get_string('actural_price', 'local_subscription_plan'), ['size' => '100']);
+        $mform->addRule('actural_price', 'required', 'required', null, 'client');
+        $mform->setType('actural_price', PARAM_INT);
+
+        $mform->addElement('text', 'class_hours', get_string('class_hours', 'local_subscription_plan'), ['size' => '100']);
+        $mform->addRule('class_hours', 'required', 'required', null, 'client');
+        $mform->setType('class_hours', PARAM_INT);
+
         
-        $sql = 'SELECT * from {course} where id <> 1 and visible = 1';
-        $courses = $DB->get_records_sql($sql);
-        $carray = array();
-        foreach($courses as $course){
-            $carray[$course->id] = $course->fullname;
-        }
+        $carray = SusbcriptionsPlans::all_courses();
+        
         $select = $mform->addElement('select', 'course', get_string('course', 'local_subscription_plan'), $carray);
         $select->setSelected(1);
-       // $select->setMultiple(true);
        
-         $mform->addElement('editor', 'description', get_string('description', 'local_subscription_plan'));
-        // $mform->addRule('intvenue', get_string('jint_venue', 'local_paytm'), 'required', null, 'client', false, false);  
+        $mform->addElement('editor', 'description', get_string('description', 'local_subscription_plan'));
         $mform->setType('description', PARAM_RAW);
         $mform->setDefault('description', '');
 
         $mform->addElement('hidden', 'id', $id);
         $mform->setType('id', PARAM_INT);
         
-        // Submit Button
         $buttonarray = array();
         $buttonarray[] = &$mform->createElement('submit', 'submitbutton1', get_string('submit'));
         $mform->addGroup($buttonarray, 'buttonar', '', '', false);
         $mform->closeHeaderBefore('buttonar');
 
         $mform->addElement('html', '</div>');
+    
     }
 
-    function validation($data, $files) {
+    public function validation($data, $files) {
+        
         global $DB;
         $errors = parent::validation($data, $files);
        
@@ -82,7 +112,6 @@ class local_plan_form extends moodleform {
                 $errors['maxpaymentsallowed'] = "Only number value allowed";
             }
         }
-
 
         if (!empty($data['minpaymentsallowed'])) {
             if ($data['minpaymentsallowed'] <= 0) {

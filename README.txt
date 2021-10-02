@@ -63,3 +63,13 @@ Version control
 =================================================================
 copyright 2014 Matthias Schwabe - eLeDia GmbH <support@eledia.de>
 license: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+
+
+// Class Hours
+// Actural Price
+// Discount
+// Pricing
+// Study Type
+//Study No. of Class
+// Per class Price
+       

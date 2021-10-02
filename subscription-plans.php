@@ -1,6 +1,7 @@
 <?php
+
 require(dirname(dirname(dirname(__FILE__))) . '/config.php');
-require_once dirname(__FILE__).'/classes/forms/SubscriptionPlanName_form.php';
+require_once dirname(__FILE__).'/classes/forms/SubscriptionPlans_form.php';
 
 global $PAGE;
 
@@ -19,15 +20,15 @@ echo $OUTPUT->header();
 
 use local_subscription_plan\util\SusbcriptionsPlans;
 
-$subscription_plan_name_form = new SubscriptionPlanName_form;
+$subscriptionplans_form = new SubscriptionPlans_form;
 $subscription_plan      = new SusbcriptionsPlans;
 
-if ($subscription_plan_name_form->is_cancelled()) {
+if ($subscriptionplans_form->is_cancelled()) {
 
     $manageurl = new moodle_url('/local/subscription_plan/plan.php');
     redirect($manageurl);
 
-} else if ($fromspf = $subscription_plan_name_form->get_data()) {
+} else if ($fromspf = $subscriptionplans_form->get_data()) {
     
     if (isset($fromspf->plan_name) && $fromspf->plan_name != "" && isset($fromspf->id) && $fromspf->id !="" ) {
         
@@ -36,7 +37,7 @@ if ($subscription_plan_name_form->is_cancelled()) {
             $manageurl = new moodle_url('/local/subscription_plan/plan.php');
 
             redirect($manageurl, get_string('plan_name_updated', 'local_subscription_plan') , 0, \core\output\notification::NOTIFY_SUCCESS);
-        
+    
         }
 
     }elseif (isset($fromspf->plan_name)) {
@@ -50,10 +51,10 @@ if ($subscription_plan_name_form->is_cancelled()) {
 
    if (isset($_GET['id']) && $_GET['id'] != "") {
         $formdata = $subscription_plan->get_single_subscription_plan_name($_GET['id']);
-        $subscription_plan_name_form->set_data($formdata);  
+        $subscriptionplans_form->set_data($formdata);  
     } 
     
-   $subscription_plan_name_form->display();
+   $subscriptionplans_form->display();
 }
 
 if (isset($_GET['deleteid']) && $_GET['deleteid'] != "" ) {
@@ -61,6 +62,6 @@ if (isset($_GET['deleteid']) && $_GET['deleteid'] != "" ) {
     redirect(new moodle_url('/local/subscription_plan/plan.php'));
 }
 
-echo $subscription_plan->plan_name_table_data();
+// echo $subscription_plan->plan_name_table_data();
 
 echo $OUTPUT->footer();

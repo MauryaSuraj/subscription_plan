@@ -2,7 +2,6 @@
 /**
  * Class deals with Subscription plans.
  */
-
 namespace local_subscription_plan\util;
 
 defined('MOODLE_INTERNAL') || die();
@@ -45,7 +44,16 @@ class SusbcriptionsPlans extends SubsHelper
 		return false;
 	}
 
-	public function get_single_subscription_plan_name($id = null){
+	public function subscription_plan_names_select_list() {
+		if ($names = $this->get_subscription_plan_names()) {
+			$ids   = array_map( fn ($value) => $value->id , $names);
+			$name  = array_map( fn ($value) => $value->plan_name, $names );			
+			return array_combine($ids, $name);
+		}
+		return array();
+	}
+
+	public function get_single_subscription_plan_name($id = null) : object {
 		if (is_null($id)) {
 			return false;
 		}
@@ -53,11 +61,25 @@ class SusbcriptionsPlans extends SubsHelper
 		if ($this->db->record_exists($this->table_sp_name, array('id' => $id ))) {
 			return $this->db->get_record($this->table_sp_name, array('id' => $id ));
 		}
+
 		return false;
 	}
 
-	public function update_subscription_plan_name(){
+	public function update_subscription_plan_name($name, $id) : int {
 
+		if (is_null($name)) {
+			return 0;
+		}
+
+		if (is_null($id)) {
+			return 0;
+		}
+
+		$dataObject              = new stdClass;
+		$dataObject->id 		 = $id; 
+		$dataObject->plan_name   = $name;
+
+		return $this->db->update_record($this->table_sp_name, $dataObject);
 	}
 
 	public function plan_name_table_data($datas = array()){
@@ -82,6 +104,13 @@ class SusbcriptionsPlans extends SubsHelper
 	    }
 
 		return html_writer::table($table);
+	}
+
+	public function delete_plan_name($id = null) {
+		if (is_null($id)) {
+			return false;
+		}
+		return $this->db->delete_records($this->table_sp_name, array('id' => $id ));
 	}
 
 }

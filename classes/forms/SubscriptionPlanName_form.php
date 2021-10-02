@@ -7,13 +7,16 @@ require_once("$CFG->libdir/formslib.php");
  * Moodle form to add subscription data.
  */
 
-class SubscriptionPlan_form extends moodleform {
+class SubscriptionPlanName_form extends moodleform {
 
     public function definition() {
 		global $CFG, $DB, $COURSE, $OUTPUT, $USER;
 
         $mform = $this->_form;
         $id = isset($this->_customdata['id']) ? $this->_customdata['id'] : null;
+
+        $mform->addElement('hidden', 'id');
+        $mform->setType('id', PARAM_INT);
 
         $mform->addElement('text', 'plan_name', get_string('plan_name_field', 'local_subscription_plan')); 
         $mform->setType('plan_name', PARAM_NOTAGS);                   

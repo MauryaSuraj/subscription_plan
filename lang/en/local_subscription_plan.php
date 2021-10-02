@@ -23,15 +23,18 @@
 
 $string["pluginname"] = "Subscription Plan";
 $string["grade"] = "Grade";
-$string["studentlevel"] = "Student Lavel";
+$string["studentlevel"] = "Student Level";
 $string["plantype"] = "Plan Type";
 $string["noofsubuject"] = "No. of Subject(s)";
-$string["priceperhours"] = "Price/hours";
+$string["priceperhours"] = "Per class Price";
 $string["price"] = "Price";
-$string["discount"] = "Discounts";
+$string["discount"] = "Discounts (%)";
 $string["course"] = "Course(s)";
 $string["description"] = "Discriptions";
 $string['payment'] = "Subscriptions Plan";
+$string['noofclasses'] = "No. of classes";
+$string['actural_price'] = "Actural price";
+$string['class_hours'] = 'Class hours';
 
 $string['edit'] = 'Edit';
 $string['delete'] = 'Delete';
@@ -45,5 +48,16 @@ $string['add_plan_name'] = 'Add new Plan name';
 $string['plan_name_added'] = 'Plan name added';
 $string['created_at'] = 'Created at';
 $string['manage_setting'] = 'Manage Action';
+$string['plan_name_updated'] = 'Plan name Updated';
 
+$string['beginners']     = 'Beginners';
+$string['intermediate']  = 'Intermediate'; 
+$string['advance']       = 'Advance';
+$string['exclusive']     = 'Exclusive';
+
+$string['elementory'] = 'Elementory';
+$string['upper']      = 'Middle/High Students';
+
+$string['single'] = 'Single course'; 
+$string['combocourse']   = 'Combo course';
 
