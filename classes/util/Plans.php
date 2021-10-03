@@ -20,21 +20,45 @@ class Plans extends SusbcriptionsPlans
 	}
 
 	public function add_subscription_plans(stdClass $formdata) : int {
+
 		
 		$dataObject              	= new stdClass;
-		$dataObject->plan_type	 	= $formdata->plantype;
 		$dataObject->plan_name_id 	= $formdata->plan_name;
-		$dataObject->student_level 	= $formdata->studentlevel;
-		$dataObject->no_of_subject 	= $formdata->noofsubject;
-		$dataObject->class_hours 	= $formdata->class_hours;
-		$dataObject->discount 		= $formdata->discount;
-		$dataObject->total_price 	= $formdata->actural_price;
 		$dataObject->course_id 		= $formdata->course;
 		$dataObject->descriptions 	= $formdata->description['text'];  
-		$dataObject->priceperhours	= $formdata->priceperhours;
-		$dataObject->noofclasses 	= $formdata->noofclasses;
 		$dataObject->created_by	 	= $this->user->id;
-		$dataObject->createdtime 	= time();	
+		$dataObject->createdtime 	= time();
+
+		$dataObject->subject  		= $formdata->subject;
+		$dataObject->no_of_student  = $formdata->no_of_student;
+
+	    $dataObject->studentlevel1 	= $formdata->studentlevel1;
+	    $dataObject->noofclasses1 	= $formdata->noofclasses1;
+	    $dataObject->priceperhours1 = $formdata->priceperhours1;
+	    $dataObject->discount1 		= $formdata->discount1;
+	    $dataObject->actural_price1 = $formdata->actural_price1;
+	    $dataObject->class_hours1 	= $formdata->class_hours1;
+
+	    $dataObject->studentlevel2 	= $formdata->studentlevel2;
+	    $dataObject->noofclasses2 	= $formdata->noofclasses2;
+	    $dataObject->priceperhours2 = $formdata->priceperhours2;
+	    $dataObject->discount2 		= $formdata->discount2;
+	    $dataObject->actural_price2 = $formdata->actural_price2;
+	    $dataObject->class_hours2 	= $formdata->class_hours2;
+	    
+	    $dataObject->studentlevel3 	= $formdata->studentlevel3;
+	    $dataObject->noofclasses3 	= $formdata->noofclasses3;
+	    $dataObject->priceperhours3 = $formdata->priceperhours3;
+	    $dataObject->discount3 		= $formdata->discount3;
+	    $dataObject->actural_price3 = $formdata->actural_price3;
+	    $dataObject->class_hours3 	= $formdata->class_hours3;
+	    
+	    $dataObject->studentlevel4 	= $formdata->studentlevel4;
+	    $dataObject->noofclasses4 	= $formdata->noofclasses4;
+	    $dataObject->priceperhours4 = $formdata->priceperhours4;
+	    $dataObject->discount4 		= $formdata->discount4; 
+	    $dataObject->actural_price4 = $formdata->actural_price4; 
+	    $dataObject->class_hours4 	= $formdata->class_hours4; 
 
 		return $this->db->insert_record($this->table_sp, $dataObject);
 	}
@@ -44,9 +68,9 @@ class Plans extends SusbcriptionsPlans
 			$plans = $this->db->get_records($this->table_sp);
 			foreach ($plans  as $key => $plan) {
 
-				$plan->plan_type 		= get_string($plan->plan_type, 'local_subscription_plan');
+				// $plan->plan_type 		= get_string($plan->plan_type, 'local_subscription_plan');
 				
-				$plan->student_level 	=  get_string($plan->student_level, 'local_subscription_plan');
+				// $plan->student_level 	=  get_string($plan->student_level, 'local_subscription_plan');
 				
 				$plan->plan_name 		= isset($this->get_single_subscription_plan_name($plan->plan_name_id)->plan_name) ? $this->get_single_subscription_plan_name($plan->plan_name_id)->plan_name : '';
 				
@@ -104,19 +128,41 @@ class Plans extends SusbcriptionsPlans
 
 		$dataObject              	= new stdClass;
 		$dataObject->id 		 	= $id; 
-		$dataObject->plan_type	 	= $formdata->plantype;
 		$dataObject->plan_name_id 	= $formdata->plan_name;
-		$dataObject->student_level 	= $formdata->studentlevel;
-		$dataObject->no_of_subject 	= $formdata->noofsubject;
-		$dataObject->class_hours 	= $formdata->class_hours;
-		$dataObject->discount 		= $formdata->discount;
-		$dataObject->total_price 	= $formdata->actural_price;
 		$dataObject->course_id 		= $formdata->course;
 		$dataObject->descriptions 	= $formdata->description['text'];  
-		$dataObject->priceperhours	= $formdata->priceperhours;
-		$dataObject->noofclasses 	= $formdata->noofclasses;
 		$dataObject->created_by	 	= $this->user->id;
-		$dataObject->createdtime 	= time();	
+		$dataObject->createdtime 	= time();
+		$dataObject->subject  		= $formdata->subject;
+		$dataObject->no_of_student  = $formdata->no_of_student;
+		
+	    $dataObject->studentlevel1 	= $formdata->studentlevel1;
+	    $dataObject->noofclasses1 	= $formdata->noofclasses1;
+	    $dataObject->priceperhours1 = $formdata->priceperhours1;
+	    $dataObject->discount1 		= $formdata->discount1;
+	    $dataObject->actural_price1 = $formdata->actural_price1;
+	    $dataObject->class_hours1 	= $formdata->class_hours1;
+
+	    $dataObject->studentlevel2 	= $formdata->studentlevel2;
+	    $dataObject->noofclasses2 	= $formdata->noofclasses2;
+	    $dataObject->priceperhours2 = $formdata->priceperhours2;
+	    $dataObject->discount2 		= $formdata->discount2;
+	    $dataObject->actural_price2 = $formdata->actural_price2;
+	    $dataObject->class_hours2 	= $formdata->class_hours2;
+	    
+	    $dataObject->studentlevel3 	= $formdata->studentlevel3;
+	    $dataObject->noofclasses3 	= $formdata->noofclasses3;
+	    $dataObject->priceperhours3 = $formdata->priceperhours3;
+	    $dataObject->discount3 		= $formdata->discount3;
+	    $dataObject->actural_price3 = $formdata->actural_price3;
+	    $dataObject->class_hours3 	= $formdata->class_hours3;
+	    
+	    $dataObject->studentlevel4 	= $formdata->studentlevel4;
+	    $dataObject->noofclasses4 	= $formdata->noofclasses4;
+	    $dataObject->priceperhours4 = $formdata->priceperhours4;
+	    $dataObject->discount4 		= $formdata->discount4; 
+	    $dataObject->actural_price4 = $formdata->actural_price4; 
+	    $dataObject->class_hours4 	= $formdata->class_hours4; 
 
 		return $this->db->update_record($this->table_sp, $dataObject);
 	}
