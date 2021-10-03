@@ -1,19 +1,43 @@
-# Accept a Card Payment
+# subscription plans #
 
-Stripe Checkout is the fastest way to get started with payments. Included are some basic build and run scripts you can use to start up the application.
+subscription plan is custom made plugin, for the plans and subscription based course enrolment using various payment gateways.
 
-## Running the sample
 
-1. Build the server
+## Installing via uploaded ZIP file ##
 
-```
-composer install
-```
+1. Log in to your Moodle site as an admin and go to _Site administration >
+   Plugins > Install plugins_.
+2. Upload the ZIP file with the plugin code. You should only be prompted to add
+   extra details if your plugin type is not automatically detected.
+3. Check the plugin validation report and finish the installation.
 
-2. Run the server
+## Installing manually ##
 
-```
-php -S 127.0.0.1:4242 -docroot=public
-```
+The plugin can be also installed by putting the contents of this directory to
 
-3. Go to [http://localhost:4242/public/checkout.html](http://localhost:4242/public/checkout.html)
+    {your/moodle/dirroot}/local/subscription_plan
+
+Afterwards, log in to your Moodle site as an admin and go to _Site administration >
+Notifications_ to complete the installation.
+
+Alternatively, you can run
+
+    $ php admin/cli/upgrade.php
+
+to complete the installation from the command line.
+
+## License ##
+
+2021 Suraj Maurya surajmaurya450@gmail.com
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <https://www.gnu.org/licenses/>.
