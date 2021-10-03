@@ -29,6 +29,37 @@ class SubscriptionPlans_form extends moodleform {
                                     $paln_names);
         $select->setSelected(1);
 
+        $attributes = array();
+
+        $radio_subjects_selection=array();
+        $radio_subjects_selection[] = $mform->createElement('radio', 'subject', '', get_string('one_subject', 'local_subscription_plan'), 1, $attributes);
+        $radio_subjects_selection[] = $mform->createElement('radio', 'subject', '', get_string('two_subject', 'local_subscription_plan'), 2, $attributes);        
+        $mform->addGroup($radio_subjects_selection, 'radioar', get_string('subjects', 'local_subscription_plan') , array(' '), false);
+
+       $carray = SusbcriptionsPlans::all_courses();
+        
+        $select = $mform->addElement('select', 'course', get_string('course', 'local_subscription_plan'), $carray);
+        $select->setSelected(1); 
+
+        $n_of_students = []; 
+        for ($i = 1; $i < 4 ; $i++) { 
+            $n_of_students[$i] = $i;
+        }
+
+        $select = $mform->addElement('select', 'no_of_student', get_string('no_of_student', 'local_subscription_plan'), $n_of_students);
+        $select->setSelected(1);
+
+        $mform->addElement('editor', 'description', get_string('description', 'local_subscription_plan'));
+        $mform->setType('description', PARAM_RAW);
+        $mform->setDefault('description', '');
+
+
+        // Loop through packages.
+
+        for ($i=1; $i <= 4 ; $i++) { 
+        
+        $mform->addElement('header', 'header'.$i, get_string('plans_subs', 'local_subscription_plan')." ".$i );
+
         $studentlevel = [
             'beginners'     => get_string('beginners', 'local_subscription_plan'), 
             'intermediate'  => get_string('intermediate', 'local_subscription_plan'), 
@@ -37,57 +68,32 @@ class SubscriptionPlans_form extends moodleform {
         ];
 
         $select = $mform->addElement('select', 'studentlevel', get_string('studentlevel', 'local_subscription_plan'), $studentlevel);
-        $select->setSelected(1);
-        
-        $grade = [
-            'elementory'    => get_string('elementory', 'local_subscription_plan'), 
-            'upper'         => get_string('upper', 'local_subscription_plan')
-        ];
-        
-        $plantype = [
-            'single'        => get_string('single', 'local_subscription_plan'), 
-            'combocourse'   => get_string('combocourse', 'local_subscription_plan')
-        ];
-        
-        $select = $mform->addElement('select', 'plantype', get_string('plantype', 'local_subscription_plan'), $plantype);
-        $select->setSelected(1);
-        
-        $noofsubject = [ '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5' ];
-        
-        $select = $mform->addElement('select', 'noofsubject', get_string('noofsubject', 'local_subscription_plan'), $noofsubject);
-        $select->setSelected(1);
-        
+        $select->setSelected(1);            
+    
+        $mform->addElement('text', 'noofclasses', get_string('noofclasses', 'local_subscription_plan'), ['size' => '100']);
+        $mform->addRule('noofclasses', 'required', 'required', null, 'client');
+        $mform->setType('noofclasses', PARAM_INT);
+
         $mform->addElement('text', 'priceperhours', get_string('priceperhours', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('priceperhours', 'required', 'required', null, 'client');
         $mform->setType('priceperhours', PARAM_RAW);
-        
         
         $mform->addElement('text', 'discount', get_string('discount', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('discount', 'required', 'required', null, 'client');
         $mform->setType('discount', PARAM_INT);
 
-        $mform->addElement('text', 'noofclasses', get_string('noofclasses', 'local_subscription_plan'), ['size' => '100']);
-        $mform->addRule('noofclasses', 'required', 'required', null, 'client');
-        $mform->setType('noofclasses', PARAM_INT);
 
         $mform->addElement('text', 'actural_price', get_string('actural_price', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('actural_price', 'required', 'required', null, 'client');
         $mform->setType('actural_price', PARAM_INT);
+    
 
         $mform->addElement('text', 'class_hours', get_string('class_hours', 'local_subscription_plan'), ['size' => '100']);
         $mform->addRule('class_hours', 'required', 'required', null, 'client');
         $mform->setType('class_hours', PARAM_INT);
 
-        
-        $carray = SusbcriptionsPlans::all_courses();
-        
-        $select = $mform->addElement('select', 'course', get_string('course', 'local_subscription_plan'), $carray);
-        $select->setSelected(1);
-       
-        $mform->addElement('editor', 'description', get_string('description', 'local_subscription_plan'));
-        $mform->setType('description', PARAM_RAW);
-        $mform->setDefault('description', '');
-
+        }
+   
         $mform->addElement('hidden', 'id', $id);
         $mform->setType('id', PARAM_INT);
         

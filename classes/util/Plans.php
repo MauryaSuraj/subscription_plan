@@ -142,14 +142,18 @@ class Plans extends SusbcriptionsPlans
 			get_string('course', 'local_subscription_plan'), 
 			get_string('manage_setting', 'local_subscription_plan')
 		];
-		    
-	    foreach ($datas as $key => $value) {
-	    	unset($value->plan_name_id);  
-	    	unset($value->course_id);
-	    	unset($value->created_by);
-	 		unset($value->descriptions);
-	    	$table->data[] 	=  (array)$value;
-	    }
+		
+		if (empty($datas)) {
+			$table->data[] = array();
+		}else{
+		    foreach ($datas as $key => $value) {
+		    	unset($value->plan_name_id);  
+		    	unset($value->course_id);
+		    	unset($value->created_by);
+		 		unset($value->descriptions);
+		    	$table->data[] 	=  (array)$value;
+		    }
+		}
 
 		return html_writer::table($table);
 	}

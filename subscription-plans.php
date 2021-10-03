@@ -57,8 +57,8 @@ if ($subscriptionplans_form->is_cancelled()) {
 }
 
 if (isset($_GET['deleteid']) && $_GET['deleteid'] != "" ) {
-    $subscription_plan->delete_plan_name($_GET['deleteid']);
-    redirect(new moodle_url('/local/subscription_plan/plan.php'));
+    $subscription_plan->delete_plan($_GET['deleteid']);
+    redirect(new moodle_url('/local/subscription_plan/subscription-plans.php'));
 }
 
 echo $subscription_plan->plan_table_data();

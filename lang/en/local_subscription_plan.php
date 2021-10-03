@@ -62,3 +62,9 @@ $string['upper']      = 'Middle/High Students';
 $string['single'] = 'Single course'; 
 $string['combocourse']   = 'Combo course';
 $string['plan_type'] = 'Plan Type';
+
+$string['one_subject'] = 'One Subject';
+$string['two_subject'] = 'Two Subject (Combo)';
+$string['subjects'] = 'Subjects';
+$string['no_of_student'] = 'No of Student(s)';
+$string['plans_subs'] = 'Add Plans and Prices for';
