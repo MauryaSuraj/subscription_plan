@@ -146,3 +146,31 @@ function get_product($itemid){
     }
    
 }
+
+/**
+ * Handle the Views here
+ */
+
+use local_subscription_plan\util\Plans;
+
+final class SusbcriptionsPlansViews extends Plans
+{
+    public static function select_plans() {
+        global $OUTPUT;
+        $data = new \stdClass;
+        return $OUTPUT->render_from_template('local_subscription_plan/select-plan', $data);
+    }
+
+    public static function plans () {
+        global $OUTPUT;
+        $data = new stdClass;
+        return $OUTPUT->render_from_template('local_subscription_plan/plans', $data);
+    }
+
+    public static function checkout(){
+        global $OUTPUT;
+        $data = new stdClass;
+        return $OUTPUT->render_from_template('local_subscription_plan/sub-checkout', $data);
+    }
+
+}
