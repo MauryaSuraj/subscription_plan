@@ -52,9 +52,9 @@ class SubscriptionPlans_form extends moodleform {
         $select = $mform->addElement('select', 'plantype', get_string('plantype', 'local_subscription_plan'), $plantype);
         $select->setSelected(1);
         
-        $noofsubuject = [ '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5' ];
+        $noofsubject = [ '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5' ];
         
-        $select = $mform->addElement('select', 'noofsubuject', get_string('noofsubuject', 'local_subscription_plan'), $noofsubuject);
+        $select = $mform->addElement('select', 'noofsubject', get_string('noofsubject', 'local_subscription_plan'), $noofsubject);
         $select->setSelected(1);
         
         $mform->addElement('text', 'priceperhours', get_string('priceperhours', 'local_subscription_plan'), ['size' => '100']);

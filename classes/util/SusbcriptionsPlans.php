@@ -13,8 +13,8 @@ use html_table;
 class SusbcriptionsPlans extends SubsHelper
 {
 	
-	private $db;
-	private $user;
+	protected $db;
+	protected $user;
 	private $table_sp_name = 'subscriptions_plan_name';
 
 	function __construct() {

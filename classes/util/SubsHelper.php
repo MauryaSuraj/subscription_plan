@@ -37,4 +37,10 @@ abstract class SubsHelper
         return $carray;
 	}
 
+	protected static function single_course($id){
+		global $DB;
+        $course = $DB->get_record_sql('SELECT * from {course} where id = :courseid and visible = 1', array('courseid' => $id));
+        return $course;
+	}
+
 }

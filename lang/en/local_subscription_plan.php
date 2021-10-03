@@ -32,9 +32,10 @@ $string["discount"] = "Discounts (%)";
 $string["course"] = "Course(s)";
 $string["description"] = "Discriptions";
 $string['payment'] = "Subscriptions Plan";
-$string['noofclasses'] = "No. of classes";
+$string['noofsubject'] = "No. of classes";
 $string['actural_price'] = "Actural price";
 $string['class_hours'] = 'Class hours';
+$string['noofclasses'] = 'No of Classes';
 
 $string['edit'] = 'Edit';
 $string['delete'] = 'Delete';
@@ -60,4 +61,4 @@ $string['upper']      = 'Middle/High Students';
 
 $string['single'] = 'Single course'; 
 $string['combocourse']   = 'Combo course';
-
+$string['plan_type'] = 'Plan Type';

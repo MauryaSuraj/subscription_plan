@@ -21,15 +21,19 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="plan_type" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="plan_name_id" TYPE="int" LENGTH="10" NOTNULL="false"  SEQUENCE="false"/>
         <FIELD NAME="student_level" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Level of student" />
         <FIELD NAME="no_of_subject" TYPE="int" LENGTH="10" DEFAULT="0" NOTNULL="true" SEQUENCE="false" COMMENT="No of courses in this plan" />
         <FIELD NAME="class_hours" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="price per hour" />
         <FIELD NAME="discount" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"  />
+        <FIELD NAME="priceperhours" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"  />
+        <FIELD NAME="noofclasses" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false"  />
+                
         <FIELD NAME="total_price" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Net Price of plan" />
         <FIELD NAME="course_id" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Course ids here" />
         <FIELD NAME="descriptions" TYPE="text" NOTNULL="false"  SEQUENCE="false" COMMENT="Details of plan" />
-        <FIELD NAME="cretedby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Plan created by" />
+
+        <FIELD NAME="created_by" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Plan created by" />
         <FIELD NAME="createdtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
