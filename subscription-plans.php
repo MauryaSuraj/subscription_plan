@@ -29,11 +29,6 @@ if ($subscriptionplans_form->is_cancelled()) {
     redirect($manageurl);
 
 } else if ($fromspf = $subscriptionplans_form->get_data()) {
-
-    // echo "<pre>";
-    // print_r($fromspf); 
-    // echo "<pre>";
-    // die();
     
     if (isset($fromspf) && isset($fromspf->id) && $fromspf->id != "" && $fromspf->id != 0 ) {
         

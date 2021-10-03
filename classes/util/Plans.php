@@ -93,28 +93,13 @@ class Plans extends SusbcriptionsPlans
 		return array();
 	}
 
-	public function get_single_subscription_plans($id = null) : object {
+	public function get_single_subscription_plans($id = null)  {
 		if (is_null($id)) {
 			return false;
 		}
 
-		if ($this->db->record_exists($this->table_sp, array('id' => $id ))) {
-			$dataObject = $this->db->get_record($this->table_sp, array('id' => $id ));
-			
-			$formdata 					= new stdClass;	
-			$formdata->plantype 		= $dataObject->plan_type;
-		 	$formdata->plan_name 		= $dataObject->plan_name_id;
-		 	$formdata->studentlevel 	= $dataObject->student_level;
-		 	$formdata->noofsubject 		= $dataObject->no_of_subject;
-		 	$formdata->class_hours 		= $dataObject->class_hours;
-		 	$formdata->discount 		= $dataObject->discount;
-		 	$formdata->actural_price	= $dataObject->total_price;
-		 	$formdata->course 			= $dataObject->course_id;
-		 	$formdata->description 		= $dataObject->descriptions; 
-			$formdata->priceperhours	= $dataObject->priceperhours;
-		 	$formdata->noofclasses 		= $dataObject->noofclasses;
-
-		 	return $formdata;
+		if ($this->db->record_exists($this->table_sp, array('plan_name_id' => $id ))) {
+			return $this->db->get_record($this->table_sp, array('plan_name_id' => $id ));
 		}
 
 		return false;
@@ -135,7 +120,7 @@ class Plans extends SusbcriptionsPlans
 		$dataObject->createdtime 	= time();
 		$dataObject->subject  		= $formdata->subject;
 		$dataObject->no_of_student  = $formdata->no_of_student;
-		
+
 	    $dataObject->studentlevel1 	= $formdata->studentlevel1;
 	    $dataObject->noofclasses1 	= $formdata->noofclasses1;
 	    $dataObject->priceperhours1 = $formdata->priceperhours1;
@@ -212,13 +197,16 @@ class Plans extends SusbcriptionsPlans
 	}
 
 	public function get_select_plans(){
-
+		$plns = array();
 		$plan_names = $this->get_subscription_plan_names();
 		
 		$datas = new stdClass;
 		$datas->hasplanname = !empty($plan_names) ? true : false;
 		$datas->plannames 	=  parent::toArray($plan_names);
-
+		foreach ($plan_names as $key => $value) {
+			array_push($plns, $this->get_single_subscription_plans($value->id));
+		}
+		$datas->plans  = $plns;
 		return $datas;		
 	}
 
