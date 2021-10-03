@@ -43,4 +43,11 @@ abstract class SubsHelper
         return $course;
 	}
 
+	protected static function toArray($data = array(), $return = array()) : array {
+		foreach ($data as $key => $value) {
+			array_push($return, $value);
+		}
+		return $return;
+	}
+
 }

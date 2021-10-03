@@ -157,7 +157,13 @@ final class SusbcriptionsPlansViews extends Plans
 {
     public static function select_plans() {
         global $OUTPUT;
-        $data = new \stdClass;
+
+        $plan = new Plans;
+
+        $data = $plan->get_select_plans();
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
         return $OUTPUT->render_from_template('local_subscription_plan/select-plan', $data);
     }
 

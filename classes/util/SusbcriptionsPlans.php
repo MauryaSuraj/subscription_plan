@@ -37,7 +37,7 @@ class SusbcriptionsPlans extends SubsHelper
 		return $this->db->insert_record($this->table_sp_name, $dataObject);
 	}
 
-	private function get_subscription_plan_names(){
+	protected function get_subscription_plan_names(){
 		if ($this->db->record_exists($this->table_sp_name, array())) {
 			return $this->db->get_records($this->table_sp_name);
 		}

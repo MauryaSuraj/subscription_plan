@@ -161,4 +161,15 @@ class Plans extends SusbcriptionsPlans
 		return $this->db->delete_records($this->table_sp, array('id' => $id ));
 	}
 
+	public function get_select_plans(){
+
+		$plan_names = $this->get_subscription_plan_names();
+		
+		$datas = new stdClass;
+		$datas->hasplanname = !empty($plan_names) ? true : false;
+		$datas->plannames 	=  parent::toArray($plan_names);
+
+		return $datas;		
+	}
+
 }
